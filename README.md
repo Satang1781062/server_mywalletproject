@@ -24,25 +24,41 @@ Built with:
 
 ## Project Structure
 /server
-├── config/  
-│ └── db.js  
-├── models/  
-│ └── index.js  
-│ └── Category.js 
-│ └── User.js
-│ └── Wallet.js
-├── routes/  
-│ └──auth.js
-│ └──category.js
-│ └── wallet.js  
-├── controllers/  
-│ └── auth.js  
-│ └── category.js  
-│ └── wallet.js  
-├── middleware/  
-│ └── auth.js  
-├── .env  
-├── server.js
+├── config/
+│   └── db.js
+
+├── models/
+│   ├── index.js
+│   ├── User.js
+│   ├── Wallet.js
+│   ├── Category.js
+│   └── Transaction.js
+
+├── routes/
+│   ├── auth.js
+│   ├── wallet.js
+│   ├── category.js
+│   └── transaction.js
+
+├── controllers/
+│   ├── auth.js
+│   ├── wallet.js
+│   ├── category.js
+│   └── transaction.js
+
+├── middleware/
+│   ├── auth.js
+│   ├── errorHandler.js
+│   └── validate.js
+
+├── utils/
+│   ├── generateToken.js
+│   └── formatDate.js
+
+├── uploads/
+├── .env
+├── package.json
+└── server.js
 
 
 
