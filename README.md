@@ -24,14 +24,25 @@ Built with:
 
 ## Project Structure
 /server
-├── config/
-├── controllers/
-├── middleware/
-├── models/
-├── routes/
-├── .env
-├── package.json
-└── server.js
+├── config/  
+│ └── db.js  
+├── models/  
+│ └── index.js  
+│ └── Category.js 
+│ └── User.js
+│ └── Wallet.js
+├── routes/  
+│ └──auth.js
+│ └──category.js
+│ └── wallet.js  
+├── controllers/  
+│ └── auth.js  
+│ └── category.js  
+│ └── wallet.js  
+├── middleware/  
+│ └── auth.js  
+├── .env  
+├── server.js
 
 
 
