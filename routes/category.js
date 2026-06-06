@@ -1,27 +1,11 @@
 const express = require("express");
+const router  = express.Router();
+const { getAll, create, update, remove } = require("../controllers/category");
+const { authCheck } = require("../middleware/auth");
 
-const router = express.Router();
-
-const {
-  createCategory,
-  getCategories,
-} = require("../controllers/category");
-
-const {
-  authCheck,
-} = require("../middleware/auth");
-
-// ================= CATEGORY =================
-router.post(
-  "/category",
-  authCheck,
-  createCategory
-);
-
-router.get(
-  "/categories",
-  authCheck,
-  getCategories
-);
+router.get("/categories",        authCheck, getAll);
+router.post("/categories",       authCheck, create);
+router.put("/categories/:id",    authCheck, update);
+router.delete("/categories/:id", authCheck, remove);
 
 module.exports = router;
