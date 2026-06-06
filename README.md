@@ -25,10 +25,37 @@ Built with:
 ## Project Structure
 /server
 ├── config/
-├── controllers/
-├── middleware/
+│   └── db.js
+
 ├── models/
+│   ├── index.js
+│   ├── User.js
+│   ├── Wallet.js
+│   ├── Category.js
+│   └── Transaction.js
+
 ├── routes/
+│   ├── auth.js
+│   ├── wallet.js
+│   ├── category.js
+│   └── transaction.js
+
+├── controllers/
+│   ├── auth.js
+│   ├── wallet.js
+│   ├── category.js
+│   └── transaction.js
+
+├── middleware/
+│   ├── auth.js
+│   ├── errorHandler.js
+│   └── validate.js
+
+├── utils/
+│   ├── generateToken.js
+│   └── formatDate.js
+
+├── uploads/
 ├── .env
 ├── package.json
 └── server.js
