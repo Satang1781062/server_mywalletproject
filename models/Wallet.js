@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
 
       name: {
         type: DataTypes.STRING,
@@ -19,18 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       type: {
-        type: DataTypes.ENUM(
-          "cash",
-          "bank",
-          "e-wallet"
-        ),
+        type: DataTypes.ENUM("cash", "bank", "e-wallet"),
         allowNull: false,
       },
     },
     {
       timestamps: true,
       tableName: "wallets",
-    }
+    },
   );
 
   return Wallet;
