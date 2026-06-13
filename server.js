@@ -14,6 +14,8 @@ app.use(express.json());
 
 app.get("/", (req, res) => res.send("Welcome to MyWallet API"));
 
+app.get("/health", (req, res) => res.json({ status: 'ok' }));
+
 // Routes auto-load
 readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
