@@ -57,3 +57,41 @@ exports.remove = async (req, res, next) => {
     res.json({ message: "Wallet deleted" });
   } catch (err) { next(err); }
 };
+
+exports.transfer = async (req, res, next) => {
+  try {
+    const { fromWalletId, toWalletId, amount, note, date } = req.body;
+
+    if (!fromWalletId) return res.status(400).json({ message: "fromWalletId is required" });
+    if (!toWalletId)   return res.status(400).json({ message: "toWalletId is required" });
+    if (!amount || +amount <= 0) return res.status(400).json({ message: "amount must be > 0" });
+    if (fromWalletId === toWalletId) return res.status(400).json({ message: "ไม่สามารถโอนหา wallet เดียวกัน" });
+
+    // ตรวจ ownership ทั้ง 2 wallet
+    const fromWallet = await Wallet.findOne({ where: { id: fromWalletId, userId: req.user.id } });
+    const toWallet   = await Wallet.findOne({ where: { id: toWalletId,   userId: req.user.id } });
+
+    if (!fromWallet) return res.status(404).json({ message: "Wallet ต้นทางไม่พบ" });
+    if (!toWallet)   return res.status(404).json({ message: "Wallet ปลายทางไม่พบ" });
+
+    // เช็ค balance พอไหม
+    if (parseFloat(fromWallet.balance) < parseFloat(amount)) {
+      return res.status(400).json({ message: "ยอดเงินใน wallet ไม่เพียงพอ" });
+    }
+
+    // อัปเดต balance ทั้ง 2 wallet
+    await fromWallet.update({ balance: parseFloat(fromWallet.balance) - parseFloat(amount) });
+    await toWallet.update({   balance: parseFloat(toWallet.balance)   + parseFloat(amount) });
+
+    res.json({
+      message: "Transfer สำเร็จ",
+      transfer: {
+        from:   { id: fromWallet.id, name: fromWallet.name, balance: fromWallet.balance },
+        to:     { id: toWallet.id,   name: toWallet.name,   balance: toWallet.balance },
+        amount: parseFloat(amount),
+        note:   note || null,
+        date:   date || new Date(),
+      },
+    });
+  } catch (err) { next(err); }
+};
